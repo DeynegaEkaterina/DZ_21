@@ -43,6 +43,11 @@ public class TshirtTest {
         try {
             Thread.sleep(3000);
         } catch(InterruptedException e) {}
+        driver.findElement(By.xpath("//input[@name= \"tildaspec-phone-part[]\"][@style]")).sendKeys("(000) 000-00-00");
+
+        try {
+            Thread.sleep(3000);
+        } catch(InterruptedException e) {}
         driver.findElement(By.xpath("//input[@id=\"input_1627385047591\"]")).sendKeys("MO");
 
         try {
@@ -62,11 +67,18 @@ public class TshirtTest {
         try {
             Thread.sleep(3000);
         } catch(InterruptedException e) {}
-        driver.findElement(By.xpath("//input[@name=\"tildadelivery-house\"]")).sendKeys("дом 13");
+        driver.findElement(By.xpath("//input[@name=\"tildadelivery-house\"]")).sendKeys("д. 1");
         try {
             Thread.sleep(3000);
         } catch(InterruptedException e) {}
         driver.findElement(By.xpath("//input[@name=\"tildadelivery-aptoffice\"]")).sendKeys("16");
 
+        driver.findElement(By.xpath("//button[@type][text()=\"ОФОРМИТЬ ЗАКАЗ\"]")).click();
+
+        //p[@class="t-form__errorbox-item js-rule-error js-rule-error-phone"][text()="Укажите, пожалуйста, корректный номер телефона"]
+
+        String warning = driver.findElement(By.xpath("//p[@class=\"t-form__errorbox-item js-rule-error js-rule-error-phone\"][text()=\"Укажите, пожалуйста, корректный номер телефона\"]")).getText();
+        String expectedWarning = "Укажите, пожалуйста, корректный номер телефона";
+        Assert.assertEquals(expectedWarning, warning);
     }
 }
