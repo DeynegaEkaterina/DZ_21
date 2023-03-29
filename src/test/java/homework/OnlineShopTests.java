@@ -11,30 +11,24 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 public class OnlineShopTests {
     private OnlineShop onlineShop;
+
+    public void await(int time){
+        try {
+            Thread.sleep(time);
+        } catch(InterruptedException e) {}
+    }
     @Test
     public void LongslivTest(){
         System.setProperty("webdriver.chrome.driver","C:\\Users\\Екатерина\\Downloads\\chromedriver_win32\\chromedriver.exe");
         WebDriver driver = new ChromeDriver();
         driver.get("https://homebrandofficial.ru/wear");
         onlineShop = new OnlineShop(driver);
-        try {
-            Thread.sleep(5000);
-        } catch(InterruptedException e) {
-
-        }
+        await(5000);
         onlineShop.clickOnSearch();
-        try {
-            Thread.sleep(5000);
-        } catch(InterruptedException e) {
-
-        }
+        await(5000);
         String longsliv = "Лонгслив в красную полоску";
         onlineShop.putInfo(longsliv);
-        try {
-            Thread.sleep(3000);
-        } catch(InterruptedException e) {
-
-        }
+        await(3000);
         String cost = driver.findElement(By.xpath("//div[@class=\"t-search-widget__result_product-price t-descr t-descr_xs\"]")).getText();
         String expectedCost = "2800 RUB";
         Assert.assertEquals(expectedCost, cost);

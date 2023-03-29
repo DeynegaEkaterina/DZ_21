@@ -1,6 +1,5 @@
 package homework;
 
-import Page.OnlineShop;
 import Page.TsirtShop;
 import org.junit.Assert;
 import org.junit.Test;
@@ -10,72 +9,39 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 public class TshirtTest {
 
-    //private TsirtShop tshirtShop;
+    private TsirtShop tshirtShop;
+    public void await(int time){
+        try {
+            Thread.sleep(time);
+        } catch(InterruptedException e) {}
+    }
 
     @Test
     public void TshirtTest() {
         System.setProperty("webdriver.chrome.driver", "C:\\Users\\Екатерина\\Downloads\\chromedriver_win32\\chromedriver.exe");
         WebDriver driver = new ChromeDriver();
         driver.get("https://homebrandofficial.ru/wear");
-        try {
-            Thread.sleep(5000);
-        } catch(InterruptedException e) {}
-       driver.findElement(By.xpath("//div[@data-original=\"https://static.tildacdn.com/stor3232-3731-4662-b032-643566313764/10361691.jpg\"]")).click();
-       //tshirtShop.clickOnTshirt();
-        try {
-            Thread.sleep(5000);
-        } catch(InterruptedException e) {}
-        driver.findElement(By.xpath("//td[@class=\"js-store-prod-popup-buy-btn-txt\"]")).click();
-        try {
-            Thread.sleep(5000);
-        } catch(InterruptedException e) {}
-        driver.findElement(By.xpath("//div[@class=\"t706__carticon t706__carticon_sm t706__carticon_showed\"]")).click();
-        try {
-            Thread.sleep(5000);
-        } catch(InterruptedException e) {}
-        driver.findElement(By.xpath("//button[@class=\"t706__sidebar-continue t-btn\"]")).click();
-
-        try {
-            Thread.sleep(3000);
-        } catch(InterruptedException e) {}
-        driver.findElement(By.xpath("//input[@id=\"input_1496239431201\"]")).sendKeys("Катя");
-
-        try {
-            Thread.sleep(3000);
-        } catch(InterruptedException e) {}
-        driver.findElement(By.xpath("//input[@name= \"tildaspec-phone-part[]\"][@style]")).sendKeys("(000) 000-00-00");
-
-        try {
-            Thread.sleep(3000);
-        } catch(InterruptedException e) {}
-        driver.findElement(By.xpath("//input[@id=\"input_1627385047591\"]")).sendKeys("MO");
-
-        try {
-            Thread.sleep(3000);
-        } catch(InterruptedException e) {}
-        driver.findElement(By.xpath("//textarea[@id=\"input_1630305196291\"]")).sendKeys("г Москва, улица Московская, дом 13");
-
-        try {
-            Thread.sleep(3000);
-        } catch(InterruptedException e) {}
-        driver.findElement(By.xpath("//input[@name=\"tildadelivery-userinitials\"]")).sendKeys("Дейнега Екатерина Юрьевна");
-
-        try {
-            Thread.sleep(3000);
-        } catch(InterruptedException e) {}
-        driver.findElement(By.xpath("//input[@name=\"tildadelivery-street\"]")).sendKeys("ул Московская");
-        try {
-            Thread.sleep(3000);
-        } catch(InterruptedException e) {}
-        driver.findElement(By.xpath("//input[@name=\"tildadelivery-house\"]")).sendKeys("д. 1");
-        try {
-            Thread.sleep(3000);
-        } catch(InterruptedException e) {}
-        driver.findElement(By.xpath("//input[@name=\"tildadelivery-aptoffice\"]")).sendKeys("16");
-
-        driver.findElement(By.xpath("//button[@type][text()=\"ОФОРМИТЬ ЗАКАЗ\"]")).click();
-
-        //p[@class="t-form__errorbox-item js-rule-error js-rule-error-phone"][text()="Укажите, пожалуйста, корректный номер телефона"]
+        tshirtShop = new TsirtShop(driver);
+        await(5000);
+        tshirtShop.clickOnTshirt();
+        await(3000);
+        tshirtShop.addToKorzina();
+         await(3000);
+        tshirtShop.clickToKorzina();
+        await(3000);
+        tshirtShop.makeOrder();
+        await(3000);
+        tshirtShop.fillName("Катя");
+        tshirtShop.fillPhoneNumber("(000) 000-00-00");
+        tshirtShop.fillRegion("MO");
+        tshirtShop.fillFullAddress("г Москва, улица Московская, д. 1");
+        tshirtShop.fillFIO("Дейнега Екатерина Юрьевна");
+        tshirtShop.fillStreet("ул Московская");
+        await(3000);
+        tshirtShop.fillHouse("д. 1");
+        tshirtShop.fillOffice("16");
+        await(2000);
+        tshirtShop.makeFinalOrder();
 
         String warning = driver.findElement(By.xpath("//p[@class=\"t-form__errorbox-item js-rule-error js-rule-error-phone\"][text()=\"Укажите, пожалуйста, корректный номер телефона\"]")).getText();
         String expectedWarning = "Укажите, пожалуйста, корректный номер телефона";
