@@ -1,6 +1,6 @@
 # DZ_21
 
-Did this homework as a part of MTS course "Automation of manual testing in Java".
+Studying Selenium. Did this homework as a part of MTS course "Automation of manual testing in Java" in march 2023.
 
 
 https://gitlab.com/keeethyyy/dz_21
